@@ -1,6 +1,9 @@
 <script>
-  const API_KEY = '5d4e7b2733ce0572a15b412c36bbf941';
-  const PHOTOSET_IDS = ['72157689002978926'];
+  import { createEventDispatcher } from 'svelte';
+
+  const API_KEY = '68bf6ef0426d5bb9b6502455c0b76fa8ae0f38ad4e38adabc6cf14438b2c61a1';
+  const QUERY = 'mexico';
+  const dispatch = createEventDispatcher();
 
   function toCssUrl(photo) {
     return 'https://farm' + photo.farm + '.staticflickr.com/' +
@@ -10,14 +13,17 @@
   let photos;
 
   async function loadPhotos() {
-    const response = await fetch('https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&' +
-      'api_key=' + API_KEY +
-      '&photoset_id=' + PHOTOSET_IDS[0] +
-      '&format=json&nojsoncallback=1');
+    const response = await fetch('https://api.unsplash.com/search/photos/' +
+      '?client_id=' + API_KEY +
+      '&query=' + QUERY +
+      '&per_page=100');
       let json = await response.json();
-      photos = json.photoset.photo;
+      photos = json.results;
       let photo = photos[Math.floor(Math.random() * photos.length)];
-      document.body.style.backgroundImage = "url('" + toCssUrl(photo) + "')";
+      await fetch(photo.urls.regular);
+      //Send event with current photo to other components
+      dispatch('photo', { photo });
+      document.body.style.backgroundImage = "url('" + photo.urls.regular + "')";
   }
 
   loadPhotos();
@@ -30,7 +36,6 @@
     background-attachment: scroll;
     background-position: center;
     background-size: cover;
-    height: 100vh;
     opacity: 0.9;
   }
 

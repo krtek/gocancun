@@ -1,7 +1,14 @@
 <script>
-	export let name;
   import Countdown from './Countdown.svelte';
   import Background from './Background.svelte';
+  import Footer from './Footer.svelte';
+
+  let photo;
+
+  function handlePhoto(event) {
+    photo=event.detail.photo;
+    console.log(photo);
+  }
 
 </script>
 
@@ -14,7 +21,12 @@
   }
 </style>
 
-<div class="container-fluid">
-  <Background/>
-  <Countdown/>
-</div>
+<Background on:photo="{handlePhoto}" />
+
+<main role="main" class="flex-shrink-0">
+  <div class="container">
+    <Countdown/>
+  </div>
+</main>
+
+<Footer photo={photo}/>
