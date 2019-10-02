@@ -7,7 +7,6 @@
 
   function handlePhoto(event) {
     photo=event.detail.photo;
-    console.log(photo);
   }
 
 </script>

@@ -19,6 +19,12 @@
       '&per_page=100');
       let json = await response.json();
       photos = json.results;
+  }
+
+  async function nextPhoto() {
+      if (!photos) {
+        await loadPhotos();
+      }
       let photo = photos[Math.floor(Math.random() * photos.length)];
       await fetch(photo.urls.regular);
       //Send event with current photo to other components
@@ -26,7 +32,7 @@
       document.body.style.backgroundImage = "url('" + photo.urls.regular + "')";
   }
 
-  loadPhotos();
+  nextPhoto();
 
 </script>
 
@@ -40,3 +46,6 @@
   }
 
 </style>
+
+<svelte:body on:click={nextPhoto}
+/>
