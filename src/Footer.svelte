@@ -9,9 +9,9 @@
 </style>
 
 <footer class="footer mt-auto py-0">
-  <div class="container">
+  <div class="container pl-4">
     {#if photo}
-    <span class="text-white">📸 by <a href="{photo.links.html}" target="_blank">{photo.user.first_name} {photo.user.last_name}</a></span>
+    <span class="text-white text-center">📸 by <a href="{photo.links.html}" target="_blank">{photo.user.first_name} {photo.user.last_name}</a></span>
     {/if}
   </div>
 </footer>
