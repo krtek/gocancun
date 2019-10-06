@@ -1,21 +1,24 @@
 <script>
   import moment from 'moment';
 
-  const departure = moment("201911131520", "YYYYMMDDHHmm");
+  const departure = moment.parseZone("2019-11-13T15:20:00+01:00");
   let days, hours, minutes, seconds, millis = '';
+  let now;
 
 
   function animate() {
-    let now = moment();
-    days = departure.diff(now, 'days');
-    now.add(days, 'days');
-    hours = (departure.diff(now, 'hours') + '').padStart(2, '0');
-    now.add(hours, 'hours');
-    minutes = (departure.diff(now, 'minutes') + '').padStart(2, '0');
-    now.add(minutes, 'minutes');
-    seconds = (departure.diff(now, 'seconds') + '').padStart(2, '0');
-    now.add(seconds, 'seconds');
-    millis = (departure.diff(now, 'millis') + '').padStart(3, '0');
+    now = moment();
+    //clone now to temp variable to allow modification
+    let temp = now.clone();
+    days = departure.diff(temp, 'days');
+    temp.add(days, 'days');
+    hours = (departure.diff(temp, 'hours') + '').padStart(2, '0');
+    temp.add(hours, 'hours');
+    minutes = (departure.diff(temp, 'minutes') + '').padStart(2, '0');
+    temp.add(minutes, 'minutes');
+    seconds = (departure.diff(temp, 'seconds') + '').padStart(2, '0');
+    temp.add(seconds, 'seconds');
+    millis = (departure.diff(temp, 'millis') + '').padStart(3, '0');
 
     window.requestAnimationFrame(animate);
   }
@@ -54,5 +57,10 @@
 </style>
 
 <div class="countdown">
-  {days} dní, {hours}:{minutes}:{seconds},{millis}
+  {#if days>0}
+  {days} dní,
+  {/if}
+  {#if now.isBefore(departure)}
+  {hours}:{minutes}:{seconds},{millis}
+  {/if}
 </div>
