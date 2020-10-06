@@ -1,8 +1,8 @@
 import svelte from 'rollup-plugin-svelte';
 import autoPreprocess from 'svelte-preprocess';
-import scss from 'svelte-preprocess';
-import resolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
+import sveltePreprocess from 'svelte-preprocess';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 
@@ -23,10 +23,10 @@ export default {
 			// we'll extract any component CSS out into
 			// a separate file — better for performance
 			css: css => {
-				css.write('public/bundle.css');
+				css.write('bundle.css');
 			},
       preprocess: [
-        scss({})
+        sveltePreprocess({})
       ]
 		}),
 
@@ -35,7 +35,7 @@ export default {
 		// some cases you'll need additional configuration —
 		// consult the documentation for details:
 		// https://github.com/rollup/rollup-plugin-commonjs
-		resolve({
+		nodeResolve({
 			browser: true,
 			dedupe: importee => importee === 'svelte' || importee.startsWith('svelte/')
 		}),

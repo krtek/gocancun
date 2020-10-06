@@ -3,7 +3,7 @@
 </script>
 
 <style lang="scss">
-  .container-fluid {
+  .footer {
     background-color: black;
   }
 </style>

@@ -1,7 +1,7 @@
 <script>
   import moment from 'moment';
 
-  const departure = moment.parseZone("2019-11-13T15:20:00+01:00");
+  const departure = moment.parseZone("2020-11-13T15:20:00+01:00");
   let days, hours, minutes, seconds, millis = '';
   let now;
 

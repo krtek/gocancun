@@ -2,7 +2,7 @@
   import { createEventDispatcher } from 'svelte';
 
   const API_KEY = '68bf6ef0426d5bb9b6502455c0b76fa8ae0f38ad4e38adabc6cf14438b2c61a1';
-  const QUERY = 'mexico';
+  const QUERY = 'girl butt';
   const dispatch = createEventDispatcher();
 
   function toCssUrl(photo) {
